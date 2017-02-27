@@ -1,10 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-//create routing object
-var contact = require('./api/contacts/index');
-
 //create an express app
 var app = express();
+
+var config = require('./config');
 
 //configure the express app to parse JSON-formatted body
 app.use(bodyParser.json());
@@ -15,6 +14,9 @@ app.get('/',function (request, response) {
   response.end("We're up and running!!!");
 });
 
+//create routing object
+var contact = require('./api/contacts/index');
+
 //Add routes for contacts api
 app.get('/api/contacts',contact.index);
 app.post('/api/contacts',contact.create);
@@ -23,6 +25,6 @@ app.delete('/api/contacts/:id',contact.delete);
 
 
 // Listen on port 8000, IP defaults to 127.0.0.1
-app.listen(8000)
+app.listen(config.port, config.host)
 // Put a friendly message on the terminal
-console.log("Server running at http://127.0.0.1:8000/");
+console.log("Server running at " + config.port+":"+  config.host );

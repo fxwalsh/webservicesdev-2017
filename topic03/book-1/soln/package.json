@@ -1,17 +1,21 @@
 {
-  "name": "node_exp_lab",
-  "version": "1.0.0",
-  "description": "solution for node express",
-  "main": " app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "contacts-service",
+  "version": "0.0.1",
+  "description": "customer service",
+  "main": "index.js",
+    "scripts": {
+    "server": "nodemon app.js"
   },
   "author": "fxwalsh",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.16.1",
+    "assert": "^1.4.1",
+    "body-parser": "^1.16.0",
     "express": "^4.14.1",
     "mongodb": "^2.2.24",
     "shortid": "^2.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
