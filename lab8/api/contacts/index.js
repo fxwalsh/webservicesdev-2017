@@ -5,7 +5,7 @@ var ObjectId = require('mongodb').ObjectID;
 var assert = require('assert');
 var config = require('../../config');
 
-var pubnub = require("../../pubsub.js")
+var contactEvent = require("../../events.js")
 
 var mongoDb;
 
@@ -41,24 +41,14 @@ exports.create = function(req, res) {
             assert.equal(err,null);
             config.logStars('Inserted: ' + JSON.stringify(result));
             res.status(200).send(result);
-             pubnub.publish({
-                        channel: 'create_contact_event',        
-                        message: JSON.stringify(contact)}, 
-                        function(status, response) {
-           if (status.error) {
-            // handle error
-            console.log(status)
-        } else {
-            console.log("message Published w/ timetoken", response.timetoken)
-        }
-           });
+            contactEvent.publish('create_contact_event', contact);
         });
     }
   else
   {
     config.logStars('No database object!');
   }
-   
+
 };
 
 // Update an existing contact in datastore.
@@ -72,7 +62,7 @@ exports.update = function(req, res) {
               console.log('' + result + ' document(s) updated');
               res.status(200).send(result);
   });
-   
+
 };
 // delete an existing contact in datastore.
 exports.delete = function(req, res) {
@@ -84,5 +74,5 @@ exports.delete = function(req, res) {
           console.log('' + result + ' document(s) deleted');
           res.status(200).send(result);
   });
-   
+
 };
